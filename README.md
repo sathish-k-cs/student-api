@@ -24,3 +24,4 @@ java -Dserver.port=8081 -jar target/student-api-1.0.0.jar
 ## Testing
 
 Automated tests are implemented using JUnit and Spring Boot Test.
+Automatic Jenkins CI trigger verification
