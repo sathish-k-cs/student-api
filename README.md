@@ -28,3 +28,4 @@ Automatic Jenkins CI trigger verification
 
 ## CI/CD Pipeline
 This project uses Jenkins for automated building, testing, and packaging.
+Jenkins automatic SCM polling test
