@@ -1,0 +1,52 @@
+---
+- name: Install Java runtime
+  apt:
+    name: "{{ java_package }}"
+    state: present
+    update_cache: yes
+
+- name: Create application directory
+  file:
+    path: "{{ app_directory }}"
+    state: directory
+    owner: "{{ app_user }}"
+    group: "{{ app_group }}"
+    mode: '0755'
+
+- name: Copy Student API JAR
+  copy:
+    src: "{{ jar_source }}"
+    dest: "{{ jar_destination }}"
+    owner: "{{ app_user }}"
+    group: "{{ app_group }}"
+    mode: '0755'
+  notify: Restart student-api
+
+- name: Create systemd service
+  copy:
+    dest: /etc/systemd/system/student-api.service
+    content: |
+      [Unit]
+      Description=Student Management API
+      After=network.target
+
+      [Service]
+      Type=simple
+      User={{ app_user }}
+      WorkingDirectory={{ app_directory }}
+      ExecStart=/usr/bin/java -jar {{ jar_destination }} --server.port={{ app_port }}
+      Restart=on-failure
+      RestartSec=5
+
+      [Install]
+      WantedBy=multi-user.target
+  notify:
+    - Reload systemd
+    - Restart student-api
+
+- name: Enable and start Student API
+  systemd:
+    name: student-api
+    enabled: yes
+    state: started
+    daemon_reload: yes

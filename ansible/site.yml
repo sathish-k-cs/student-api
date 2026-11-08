@@ -1,0 +1,7 @@
+---
+- name: Deploy Student Management API
+  hosts: local
+  become: false
+
+  roles:
+    - student-api

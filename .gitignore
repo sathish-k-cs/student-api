@@ -2,3 +2,6 @@ target/
 *.log
 .idea/
 .vscode/
+student-api.tar
+__pycache__/
+*.pyc

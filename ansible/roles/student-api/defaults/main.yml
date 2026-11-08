@@ -1,0 +1,9 @@
+---
+app_name: student-api
+app_user: rocky
+app_group: rocky
+app_directory: /opt/student-api
+app_port: 8081
+jar_source: "{{ playbook_dir }}/../target/student-api-1.0.0.jar"
+jar_destination: "{{ app_directory }}/student-api.jar"
+java_package: openjdk-21-jre-headless
